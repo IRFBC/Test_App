@@ -36,7 +36,7 @@ This project aims to develop a dataset for designing an AI model focused on iden
 
 1. **Run the application**:
     ```bash
-    python app.py
+    python Test.py
     ```
 
 2. **Upload the questionnaire file**: Click on the "Upload File" button and select an Excel file with the questionnaire.
@@ -74,6 +74,7 @@ This project aims to develop a dataset for designing an AI model focused on iden
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
 
 ## Future Work
