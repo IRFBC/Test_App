@@ -79,8 +79,21 @@ def show_results():
 def save_results():
     global selected_options, file_name
     results_df = pd.DataFrame({'Question': range(1, len(selected_options) + 1), 'Score': selected_options})
-    with pd.ExcelWriter('results.xlsx', mode='a', if_sheet_exists='new') as writer:
-        results_df.to_excel(writer, sheet_name=file_name.split('.')[0], index=False)
+
+    try:
+        # Try to open the existing results file
+        existing_df = pd.read_excel('results.xlsx', sheet_name=None)
+    except FileNotFoundError:
+        # If the file does not exist, create an empty dictionary
+        existing_df = {}
+
+    # Add the new results to the existing data
+    existing_df[file_name.split('.')[0]] = results_df
+
+    # Write all sheets back to the file
+    with pd.ExcelWriter('results.xlsx', engine='openpyxl') as writer:
+        for sheet_name, df in existing_df.items():
+            df.to_excel(writer, sheet_name=sheet_name, index=False)
 
 def clear_inputs():
     global current_question, total_score, selected_options, question_text, results_text
